@@ -1,6 +1,8 @@
 package delivery.spaxsoftware.spaxshop.entities;
 
 
+import android.media.Image;
+
 import com.google.gson.annotations.SerializedName;
 
 public class User {
@@ -15,6 +17,7 @@ public class User {
     private String name;
     private String street;
     private String city;
+    private String image;
 
     @SerializedName("house_number")
     private String houseNumber;
@@ -74,6 +77,14 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getHouseNumber() {
@@ -138,6 +149,7 @@ public class User {
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (street != null ? !street.equals(user.street) : user.street != null) return false;
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
+        if (image != null ? !image.equals(user.image) : user.image != null) return false;
         if (houseNumber != null ? !houseNumber.equals(user.houseNumber) : user.houseNumber != null)
             return false;
         if (zip != null ? !zip.equals(user.zip) : user.zip != null) return false;
@@ -156,6 +168,7 @@ public class User {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + (houseNumber != null ? houseNumber.hashCode() : 0);
         result = 31 * result + (zip != null ? zip.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
@@ -174,6 +187,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
+                ", image='" + image + '\'' +
                 ", houseNumber='" + houseNumber + '\'' +
                 ", zip='" + zip + '\'' +
                 ", email='" + email + '\'' +

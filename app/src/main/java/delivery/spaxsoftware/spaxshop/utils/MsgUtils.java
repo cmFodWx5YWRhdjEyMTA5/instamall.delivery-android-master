@@ -22,6 +22,7 @@ public class MsgUtils {
     public static final int TOAST_TYPE_INTERNAL_ERROR = 2;
     public static final int TOAST_TYPE_NO_NETWORK = 3;
     public static final int TOAST_TYPE_NO_SIZE_SELECTED = 5;
+    public static final int TOAST_TYPE_LOGIN_FAILED = 6;
 
     public static void logErrorMessage(VolleyError error) {
         try {
@@ -111,6 +112,9 @@ public class MsgUtils {
                 break;
             case TOAST_TYPE_NO_SIZE_SELECTED:
                 str = activity.getString(R.string.Please_select_a_size);
+                break;
+            case TOAST_TYPE_LOGIN_FAILED:
+                str = activity.getString(R.string.Login_Failed);
                 break;
         }
 

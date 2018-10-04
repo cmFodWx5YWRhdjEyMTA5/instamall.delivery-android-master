@@ -110,6 +110,7 @@
     <string name="START_SHOPPING">ZAČÍT NAKUPOVAT</string>
     <string name="SHIPPING_AND_PAYMENT">DOPRAVA a PLATBA</string>
     <string name="Please_select_a_size">Prosím vyberte velikost.</string>
+    <string name="Login_Failed">Invalid email or password.</string>
     <string name="added_to_cart">přidán do košíku.</string>
     <string name="Go_to_cart">Do košíku</string>
     <string name="Delete">Smazat</string>

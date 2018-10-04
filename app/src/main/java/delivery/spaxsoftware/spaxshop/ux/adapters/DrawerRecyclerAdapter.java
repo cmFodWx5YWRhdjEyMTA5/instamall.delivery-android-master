@@ -1,7 +1,11 @@
 package delivery.spaxsoftware.spaxshop.ux.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +30,9 @@ import delivery.spaxsoftware.spaxshop.entities.drawerMenu.DrawerItemCategory;
 import delivery.spaxsoftware.spaxshop.entities.drawerMenu.DrawerItemPage;
 import delivery.spaxsoftware.spaxshop.interfaces.DrawerRecyclerInterface;
 import delivery.spaxsoftware.spaxshop.listeners.OnSingleClickListener;
+import delivery.spaxsoftware.spaxshop.utils.CircleTransform;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Adapter handling list of drawer items.
@@ -99,9 +110,38 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             User user = SettingsMy.getActiveUser();
             if (user != null) {
                 viewHolderHeader.userName.setText(user.getEmail());
+                setProfileImage(user.getImage(), viewHolderHeader._profileimg);
             } else {
                 viewHolderHeader.userName.setText(context.getString(R.string.Unknown_user));
             }
+        }
+    }
+
+    //Added by Spax
+    private static void setProfileImage(String imgUrl, ImageView imgView) {
+        String ProfileUrl = imgUrl;
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(getApplicationContext());
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
+        //Read image from file resource
+        //Was changed now reads from saved url in server
+        if (ProfileUrl != null) {
+            Glide.with(getApplicationContext()).load(ProfileUrl)
+                    .crossFade()
+                    .thumbnail(0.5f)
+                    .bitmapTransform(new CircleTransform(getApplicationContext()))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(circularProgressDrawable)
+                    .into(imgView);
+        } else {
+            //Read image from drawable resource
+            Glide.with(getApplicationContext()).load(R.drawable.user)
+                    .crossFade()
+                    .thumbnail(0.5f)
+                    .bitmapTransform(new CircleTransform(getApplicationContext()))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imgView);
         }
     }
 
@@ -226,10 +266,12 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public static class ViewHolderHeader extends RecyclerView.ViewHolder {
         public TextView userName;
+        public ImageView _profileimg;
 
         public ViewHolderHeader(View headerView, final DrawerRecyclerInterface drawerRecyclerInterface) {
             super(headerView);
-            userName = (TextView) headerView.findViewById(R.id.navigation_drawer_list_header_text);
+            userName = headerView.findViewById(R.id.navigation_drawer_list_header_text);
+            _profileimg = headerView.findViewById(R.id.profile_img);
             headerView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {

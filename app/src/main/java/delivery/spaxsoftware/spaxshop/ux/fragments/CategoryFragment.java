@@ -429,6 +429,8 @@ public class CategoryFragment extends Fragment {
             }
             //johnspax
             url = url + "&request=products";
+        } else {
+            loadMoreProgress.setVisibility(View.GONE);
         }
 
         GsonRequest<ProductListResponse> getProductsRequest = new GsonRequest<>(Request.Method.GET, url, null, ProductListResponse.class,
@@ -448,7 +450,7 @@ public class CategoryFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 if (loadMoreProgress != null) loadMoreProgress.setVisibility(View.GONE);
                 checkEmptyContent();
-                MsgUtils.logAndShowErrorMessage(getActivity(), error);
+                //MsgUtils.logAndShowErrorMessage(getActivity(), error);
             }
         });
         getProductsRequest.setRetryPolicy(MyApplication.getDefaultRetryPolice());

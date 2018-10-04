@@ -204,7 +204,7 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
             });
         }
 
-        loginEmailForgottenEmailWrapper = (TextInputLayout) view.findViewById(R.id.login_email_forgotten_email_wrapper);
+        loginEmailForgottenEmailWrapper = view.findViewById(R.id.login_email_forgotten_email_wrapper);
         EditText emailForgottenPassword = loginEmailForgottenEmailWrapper.getEditText();
         if (emailForgottenPassword != null)
             emailForgottenPassword.setText(SettingsMy.getUserEmailHint());
@@ -412,7 +412,12 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
                     @Override
                     public void onResponse(@NonNull User response) {
                         Timber.d(MSG_RESPONSE, response.toString());
-                        handleUserLogin(response);
+                        if (!response.getEmail().equals(""))
+                            handleUserLogin(response);
+                        else {
+                            MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_LOGIN_FAILED, null, MsgUtils.ToastLength.SHORT);
+                            if (progressDialog != null) progressDialog.cancel();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

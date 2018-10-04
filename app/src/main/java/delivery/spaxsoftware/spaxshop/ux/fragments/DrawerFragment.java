@@ -126,7 +126,7 @@ public class DrawerFragment extends Fragment {
      * @param view fragment base view.
      */
     private void prepareDrawerRecycler(View view) {
-        drawerRecycler = (RecyclerView) view.findViewById(R.id.drawer_recycler);
+        drawerRecycler = view.findViewById(R.id.drawer_recycler);
         drawerRecyclerAdapter = new DrawerRecyclerAdapter(getContext(), new DrawerRecyclerInterface() {
             @Override
             public void onCategorySelected(View v, DrawerItemCategory drawerItemCategory) {

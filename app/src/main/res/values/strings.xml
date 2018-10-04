@@ -87,7 +87,7 @@
     <!-- Login related strings-->
     <string name="Log_in">Log in</string>
     <string name="Log_out">Log out</string>
-    <string name="Log_in_to_shop_via">Log in to shop via</string>
+    <string name="Log_in_to_shop_via">Log in to Spax via</string>
     <string name="Log_in_to_shop_via_email">Log in to shop via email</string>
     <string name="Dont_have_an_account">Don\'t have an account?</string>
     <string name="Skip">Skip</string>
@@ -113,6 +113,7 @@
     <string name="START_SHOPPING">START SHOPPING</string>
     <string name="SHIPPING_AND_PAYMENT">SHIPPING and PAYMENT</string>
     <string name="Please_select_a_size">Please select a size.</string>
+    <string name="Login_Failed">Invalid email or password.</string>
     <string name="added_to_cart">added to cart</string>
     <string name="Go_to_cart">Go to cart</string>
     <string name="Delete">Delete</string>

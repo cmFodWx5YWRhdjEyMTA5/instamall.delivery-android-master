@@ -191,9 +191,10 @@ public class AccountFragment extends Fragment {
             tvUserName.setText(user.getName());
 
             String address = user.getStreet();
-            address = appendCommaText(address, user.getHouseNumber(), false);
+            //address = appendCommaText(address, user.getHouseNumber(), false);
             address = appendCommaText(address, user.getCity(), true);
-            address = appendCommaText(address, user.getZip(), true);
+            //address = appendCommaText(address, user.getZip(), true);
+            address = appendCommaText(address, user.getCountry(), true);
 
             tvAddress.setText(address);
             tvEmail.setText(user.getEmail());

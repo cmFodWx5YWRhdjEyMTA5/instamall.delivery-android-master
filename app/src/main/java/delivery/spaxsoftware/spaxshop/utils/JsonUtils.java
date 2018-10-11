@@ -25,6 +25,8 @@ public class JsonUtils {
     public static final String TAG_OLD_PASSWORD = "old_password";
     public static final String TAG_NEW_PASSWORD = "new_password";
     public static final String TAG_NAME = "name";
+    public static final String TAG_FIRST_NAME = "firstname";
+    public static final String TAG_LAST_NAME = "lastname";
     public static final String TAG_STREET = "street";
     public static final String TAG_HOUSE_NUMBER = "house_number";
     public static final String TAG_CITY = "city";
@@ -32,6 +34,7 @@ public class JsonUtils {
     public static final String TAG_ZIP = "zip";
     public static final String TAG_PHONE = "phone";
     public static final String TAG_GENDER = "gender";
+    public static final String TAG_IMEI = "DeviceIMEI";
 
     // ORDERS
     public static final String TAG_DATE_CREATED = "date_created";

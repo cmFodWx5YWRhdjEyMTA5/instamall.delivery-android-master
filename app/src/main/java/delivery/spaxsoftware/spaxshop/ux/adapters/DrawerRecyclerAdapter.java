@@ -126,7 +126,7 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         circularProgressDrawable.start();
         //Read image from file resource
         //Was changed now reads from saved url in server
-        if (ProfileUrl != null) {
+        if (ProfileUrl != null && !ProfileUrl.equals("")) {
             Glide.with(getApplicationContext()).load(ProfileUrl)
                     .crossFade()
                     .thumbnail(0.5f)

@@ -1,18 +1,25 @@
 package delivery.spaxsoftware.spaxshop.ux.dialogs;
 
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +71,8 @@ import delivery.spaxsoftware.spaxshop.utils.Utils;
 import delivery.spaxsoftware.spaxshop.ux.MainActivity;
 import timber.log.Timber;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Dialog handles user login, registration and forgotten password function.
  */
@@ -80,11 +89,16 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
     private LinearLayout loginEmailForgottenForm;
 
     private TextInputLayout loginRegistrationEmailWrapper;
+    private TextInputLayout loginRegistrationFirstNameWrapper;
+    private TextInputLayout loginRegistrationLastNameWrapper;
+    private TextInputLayout loginRegistrationMobileWrapper;
     private TextInputLayout loginRegistrationPasswordWrapper;
     private RadioButton loginRegistrationGenderWoman;
     private TextInputLayout loginEmailEmailWrapper;
     private TextInputLayout loginEmailPasswordWrapper;
     private TextInputLayout loginEmailForgottenEmailWrapper;
+    private static String ACCESS_DENIED = "ACCESS DENIED";
+    private static String deviceSerial;
 
     /**
      * Creates dialog which handles user login, registration and forgotten password function.
@@ -176,6 +190,9 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
     private void prepareInputBoxes(View view) {
         // Registration form
         loginRegistrationEmailWrapper = (TextInputLayout) view.findViewById(R.id.login_registration_email_wrapper);
+        loginRegistrationFirstNameWrapper = (TextInputLayout) view.findViewById(R.id.login_registration_firstname_wrapper);
+        loginRegistrationLastNameWrapper = (TextInputLayout) view.findViewById(R.id.login_registration_lastname_wrapper);
+        loginRegistrationMobileWrapper = (TextInputLayout) view.findViewById(R.id.login_registration_mobile_wrapper);
         loginRegistrationPasswordWrapper = (TextInputLayout) view.findViewById(R.id.login_registration_password_wrapper);
         loginRegistrationGenderWoman = (RadioButton) view.findViewById(R.id.login_registration_sex_woman);
         EditText registrationPassword = loginRegistrationPasswordWrapper.getEditText();
@@ -321,7 +338,11 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
         registerBtn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                invokeRegisterNewUser();
+                //invokeRegisterNewUser();
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    askPermisions();
+                else
+                    invokeRegisterNewUser();
             }
         });
 
@@ -341,13 +362,15 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
 
     private void invokeRegisterNewUser() {
         hideSoftKeyboard();
-        if (isRequiredFields(loginRegistrationEmailWrapper, loginRegistrationPasswordWrapper)) {
+        if (isRequiredRegistrationFields(loginRegistrationEmailWrapper, loginRegistrationPasswordWrapper, loginRegistrationFirstNameWrapper,
+                loginRegistrationLastNameWrapper, loginRegistrationMobileWrapper)) {
 //            SettingsMy.setUserEmailHint(etRegistrationEmail.getText().toString());
-            registerNewUser(loginRegistrationEmailWrapper.getEditText(), loginRegistrationPasswordWrapper.getEditText());
+            registerNewUser(loginRegistrationEmailWrapper.getEditText(), loginRegistrationPasswordWrapper.getEditText(), loginRegistrationFirstNameWrapper.getEditText(),
+                    loginRegistrationLastNameWrapper.getEditText(), loginRegistrationMobileWrapper.getEditText());
         }
     }
 
-    private void registerNewUser(EditText editTextEmail, EditText editTextPassword) {
+    private void registerNewUser(EditText editTextEmail, EditText editTextPassword, EditText editFirstName, EditText editLastName, EditText editMobile) {
         SettingsMy.setUserEmailHint(editTextEmail.getText().toString());
         String url = String.format(EndPoints.USER_REGISTER, SettingsMy.getActualNonNullShop(getActivity()).getId());
         progressDialog.show();
@@ -358,6 +381,10 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
             jo.put(JsonUtils.TAG_EMAIL, editTextEmail.getText().toString().trim());
             jo.put(JsonUtils.TAG_PASSWORD, editTextPassword.getText().toString().trim());
             jo.put(JsonUtils.TAG_GENDER, loginRegistrationGenderWoman.isChecked() ? "female" : "male");
+            jo.put(JsonUtils.TAG_FIRST_NAME, editFirstName.getText().toString());
+            jo.put(JsonUtils.TAG_LAST_NAME, editLastName.getText().toString());
+            jo.put(JsonUtils.TAG_PHONE, formatPhone(editMobile.getText().toString()));
+            jo.put(JsonUtils.TAG_IMEI, deviceSerial);
         } catch (JSONException e) {
             Timber.e(e, "Parse new user registration exception");
             MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_INTERNAL_ERROR, null, MsgUtils.ToastLength.SHORT);
@@ -370,7 +397,12 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
                     @Override
                     public void onResponse(@NonNull User response) {
                         Timber.d(MSG_RESPONSE, response.toString());
-                        handleUserLogin(response);
+                        if (!response.getEmail().equals(""))
+                            handleUserLogin(response);
+                        else {
+                            MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_REGISTRATION_FAILED, null, MsgUtils.ToastLength.SHORT);
+                            if (progressDialog != null) progressDialog.cancel();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -590,6 +622,85 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
         }
     }
 
+    /**
+     * Check if editTexts are valid view and if user set all required fields.
+     * During Registration, contains more fields
+     *
+     * @return true if ok.
+     */
+    private boolean isRequiredRegistrationFields(TextInputLayout emailWrapper, TextInputLayout passwordWrapper, TextInputLayout firstNameWrapper,
+                                                 TextInputLayout lastNameWrapper, TextInputLayout mobileWrapper) {
+        if (emailWrapper == null || passwordWrapper == null || firstNameWrapper == null || lastNameWrapper == null || mobileWrapper == null) {
+            Timber.e(new RuntimeException(), "Called isRequiredFields with null parameters.");
+            MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_INTERNAL_ERROR, null, MsgUtils.ToastLength.LONG);
+            return false;
+        } else {
+            EditText email = emailWrapper.getEditText();
+            EditText password = passwordWrapper.getEditText();
+            EditText firstname = firstNameWrapper.getEditText();
+            EditText lastname = lastNameWrapper.getEditText();
+            EditText mobile = mobileWrapper.getEditText();
+            if (email == null || password == null || firstname == null || lastname == null || mobile == null) {
+                Timber.e(new RuntimeException(), "Called isRequiredFields with null editTexts in wrappers.");
+                MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_INTERNAL_ERROR, null, MsgUtils.ToastLength.LONG);
+                return false;
+            } else {
+                boolean isEmail = false;
+                boolean isPassword = false;
+                boolean isFirstName = false;
+                boolean isLastName = false;
+                boolean isMobile = false;
+
+                if (email.getText().toString().equalsIgnoreCase("")) {
+                    emailWrapper.setErrorEnabled(true);
+                    emailWrapper.setError(getString(R.string.Required_field));
+                } else {
+                    emailWrapper.setErrorEnabled(false);
+                    isEmail = true;
+                }
+
+                if (password.getText().toString().equalsIgnoreCase("")) {
+                    passwordWrapper.setErrorEnabled(true);
+                    passwordWrapper.setError(getString(R.string.Required_field));
+                } else {
+                    passwordWrapper.setErrorEnabled(false);
+                    isPassword = true;
+                }
+
+                if (firstname.getText().toString().equalsIgnoreCase("")) {
+                    firstNameWrapper.setErrorEnabled(true);
+                    firstNameWrapper.setError(getString(R.string.Required_field));
+                } else {
+                    firstNameWrapper.setErrorEnabled(false);
+                    isFirstName = true;
+                }
+
+                if (lastname.getText().toString().equalsIgnoreCase("")) {
+                    lastNameWrapper.setErrorEnabled(true);
+                    lastNameWrapper.setError(getString(R.string.Required_field));
+                } else {
+                    lastNameWrapper.setErrorEnabled(false);
+                    isLastName = true;
+                }
+
+                if (mobile.getText().toString().equalsIgnoreCase("")) {
+                    mobileWrapper.setErrorEnabled(true);
+                    mobileWrapper.setError(getString(R.string.Required_field));
+                } else {
+                    mobileWrapper.setErrorEnabled(false);
+                    isMobile = true;
+                }
+
+                if (isEmail && isPassword && isFirstName && isLastName && isMobile) {
+                    return true;
+                } else {
+                    Timber.e("Some fields are required.");
+                    return false;
+                }
+            }
+        }
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -703,5 +814,46 @@ public class LoginDialogFragment extends DialogFragment implements FacebookCallb
 
     private enum FormState {
         BASE, REGISTRATION, EMAIL, FORGOTTEN_PASSWORD
+    }
+
+    private String formatPhone(String phone) {
+        String newPhone = "";
+        try {
+            newPhone = "254" + phone.substring(phone.length() - 9, phone.length());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return newPhone;
+    }
+
+    public void askPermisions(){
+        final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+        if(Build.VERSION.SDK_INT > 22)
+            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE_ASK_PERMISSIONS);
+    }
+
+    //Permissions result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        for (int i = 0; i < grantResults.length; i++) {
+            String permission = permissions[i];
+            if (Manifest.permission.READ_PHONE_STATE.equals(permission)) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                    TelephonyManager telephonyManager;
+                    telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager.getDeviceId() != null) {
+                        deviceSerial = telephonyManager.getDeviceId();
+                    } else {
+                        deviceSerial = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                    }
+                    invokeRegisterNewUser();
+                } else {
+                    //deviceSerial = ACCESS_DENIED;
+                    MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_IMEI_FAILED, null, MsgUtils.ToastLength.SHORT);
+                    if (progressDialog != null) progressDialog.cancel();
+                    return;
+                }
+            }
+        }
     }
 }

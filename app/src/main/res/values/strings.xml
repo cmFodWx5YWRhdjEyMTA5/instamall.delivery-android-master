@@ -66,6 +66,9 @@
 
     <string name="Account">Account</string>
     <string name="Email">Email</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
+    <string name="Mobile">Mobile e.g 0700123456</string>
     <string name="Phone">Phone</string>
     <string name="Street">Street</string>
     <string name="House_code">House code</string>
@@ -114,6 +117,8 @@
     <string name="SHIPPING_AND_PAYMENT">SHIPPING and PAYMENT</string>
     <string name="Please_select_a_size">Please select a size.</string>
     <string name="Login_Failed">Invalid email or password.</string>
+    <string name="Registration_Failed">Invalid registration details.</string>
+    <string name="IMEI_Failed">Failed to get serial number.</string>
     <string name="added_to_cart">added to cart</string>
     <string name="Go_to_cart">Go to cart</string>
     <string name="Delete">Delete</string>

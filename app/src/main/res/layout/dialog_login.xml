@@ -178,6 +178,82 @@
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:nextFocusDown="@+id/login_registration_firstname_wrapper"
+                android:nextFocusForward="@+id/login_registration_firstname_wrapper"
+                android:nextFocusRight="@+id/login_registration_firstname_wrapper"
+                android:paddingEnd="@dimen/base_margin_horizontal_half"
+                android:paddingLeft="@dimen/base_margin_horizontal"
+                android:paddingRight="@dimen/base_margin_horizontal_half"
+                android:paddingStart="@dimen/base_margin_horizontal"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_registration_firstname_wrapper"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/colorPrimaryLight">
+
+            <EditText
+                android:id="@+id/login_registration_firstname_text_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/FirstName"
+                android:capitalize="words"
+                android:imeOptions="actionNext"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/login_registration_lastname_wrapper"
+                android:nextFocusForward="@+id/login_registration_lastname_wrapper"
+                android:nextFocusRight="@+id/login_registration_lastname_wrapper"
+                android:paddingEnd="@dimen/base_margin_horizontal_half"
+                android:paddingLeft="@dimen/base_margin_horizontal"
+                android:paddingRight="@dimen/base_margin_horizontal_half"
+                android:paddingStart="@dimen/base_margin_horizontal"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_registration_lastname_wrapper"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/colorPrimaryLight">
+
+            <EditText
+                android:id="@+id/login_registration_lastname_text_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/LastName"
+                android:imeOptions="actionNext"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/login_registration_mobile_text_auto"
+                android:nextFocusForward="@+id/login_registration_mobile_text_auto"
+                android:nextFocusRight="@+id/login_registration_mobile_text_auto"
+                android:paddingEnd="@dimen/base_margin_horizontal_half"
+                android:paddingLeft="@dimen/base_margin_horizontal"
+                android:paddingRight="@dimen/base_margin_horizontal_half"
+                android:paddingStart="@dimen/base_margin_horizontal"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_registration_mobile_wrapper"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/colorPrimaryLight">
+
+            <EditText
+                android:id="@+id/login_registration_mobile_text_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Mobile"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
                 android:nextFocusDown="@+id/login_registration_password"
                 android:nextFocusForward="@+id/login_registration_password"
                 android:nextFocusRight="@+id/login_registration_password"

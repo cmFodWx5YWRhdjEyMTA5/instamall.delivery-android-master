@@ -19,11 +19,11 @@ public class EndPoints {
     public static final String PRODUCTS                 = API_URL.concat("%d/products");
     public static final String PRODUCTS_SINGLE          = API_URL.concat("%d/products/%d");
     public static final String PRODUCTS_SINGLE_RELATED  = API_URL.concat("%d/products/%d?include=related&request=products");
-    public static final String USER_REGISTER            = API_URL.concat("%d/users/register?request=users");
+    public static final String USER_REGISTER            = API_URL.concat("%d/users/register?request=register");
     public static final String USER_LOGIN_EMAIL         = API_URL.concat("%d/login/email?request=login_mail");
     public static final String USER_LOGIN_FACEBOOK      = API_URL.concat("%d/login/facebook?request=login_fb");
     public static final String USER_RESET_PASSWORD      = API_URL.concat("%d/users/reset-password?request=pass_reset");
-    public static final String USER_SINGLE              = API_URL.concat("%d/users/%d?request=users");
+    public static final String USER_SINGLE              = API_URL.concat("%d/users/%d?request=userInfo");
     public static final String USER_CHANGE_PASSWORD     = API_URL.concat("%d/users/%d/password?request=pass_change");
     public static final String CART                     = API_URL.concat("%d/cart?request=cart");
     public static final String CART_INFO                = API_URL.concat("%d/cart/info?request=cart_info");

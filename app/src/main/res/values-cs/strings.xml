@@ -63,6 +63,9 @@
 
     <string name="Account">Účet</string>
     <string name="Email">Email</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
+    <string name="Mobile">Mobile e.g 0700123456</string>
     <string name="Phone">Telefon</string>
     <string name="Street">Ulice</string>
     <string name="House_code">Číslo domu</string>
@@ -111,6 +114,8 @@
     <string name="SHIPPING_AND_PAYMENT">DOPRAVA a PLATBA</string>
     <string name="Please_select_a_size">Prosím vyberte velikost.</string>
     <string name="Login_Failed">Invalid email or password.</string>
+    <string name="Registration_Failed">Invalid registration details.</string>
+    <string name="IMEI_Failed">Failed to get serial number.</string>
     <string name="added_to_cart">přidán do košíku.</string>
     <string name="Go_to_cart">Do košíku</string>
     <string name="Delete">Smazat</string>

@@ -15,6 +15,8 @@ public class User {
     @SerializedName("access_token")
     private String accessToken;
     private String name;
+    private String firstname;
+    private String lastname;
     private String street;
     private String city;
     private String image;
@@ -61,6 +63,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFirstName() {
+        return firstname;
+    }
+
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastName() {
+        return lastname;
+    }
+
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getStreet() {
@@ -147,6 +165,8 @@ public class User {
         if (accessToken != null ? !accessToken.equals(user.accessToken) : user.accessToken != null)
             return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(user.lastname) : user.lastname != null) return false;
         if (street != null ? !street.equals(user.street) : user.street != null) return false;
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
         if (image != null ? !image.equals(user.image) : user.image != null) return false;
@@ -166,6 +186,8 @@ public class User {
         result = 31 * result + (fbId != null ? fbId.hashCode() : 0);
         result = 31 * result + (accessToken != null ? accessToken.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);
@@ -185,6 +207,8 @@ public class User {
                 ", fbId='" + fbId + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", name='" + name + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", image='" + image + '\'' +

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -32,32 +32,62 @@
                     android:paddingTop="@dimen/base_margin_vertical"
                     android:text="@string/Account"
                     android:textColor="@color/textPrimary"
-                    android:textSize="17sp"/>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/account_edit_name_wrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:textColorHint="@color/colorPrimaryLight">
-
-                    <EditText
-                        android:id="@+id/account_edit_name_et"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/Name_colon"
-                        android:inputType="textPersonName"
-                        android:nextFocusForward="@+id/account_edit_street_et"
-                        android:singleLine="true"
-                        android:textColor="@color/textPrimary"/>
-                </android.support.design.widget.TextInputLayout>
+                    android:textSize="17sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/account_edit_fname_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:textColorHint="@color/colorPrimaryLight">
+
+                        <EditText
+                            android:id="@+id/account_edit_fname_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Name_colon"
+                            android:inputType="textPersonName"
+                            android:nextFocusForward="@+id/account_edit_street_et"
+                            android:singleLine="true"
+                            android:textColor="@color/textPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/account_edit_lname_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0.5"
+                        android:textColorHint="@color/colorPrimaryLight">
+
+                        <EditText
+                            android:id="@+id/account_edit_lname_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Name_colon"
+                            android:inputType="textPersonName"
+                            android:nextFocusForward="@+id/account_edit_street_et"
+                            android:singleLine="true"
+                            android:textColor="@color/textPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <android.support.design.widget.TextInputLayout
@@ -74,11 +104,11 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/Street"
                             android:inputType="textPostalAddress"
+                            android:nextFocusRight="@+id/account_edit_house_number_et"
                             android:nextFocusDown="@+id/account_edit_house_number_et"
                             android:nextFocusForward="@+id/account_edit_house_number_et"
-                            android:nextFocusRight="@+id/account_edit_house_number_et"
                             android:singleLine="true"
-                            android:textColor="@color/textPrimary"/>
+                            android:textColor="@color/textPrimary" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -95,20 +125,20 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/House_code"
                             android:inputType="textPostalAddress"
-                            android:nextFocusDown="@+id/account_edit_city_et"
-                            android:nextFocusForward="@+id/account_edit_city_et"
                             android:nextFocusLeft="@+id/account_edit_street_et"
                             android:nextFocusRight="@+id/account_edit_city_et"
+                            android:nextFocusDown="@+id/account_edit_city_et"
+                            android:nextFocusForward="@+id/account_edit_city_et"
                             android:singleLine="true"
-                            android:textColor="@color/textPrimary"/>
+                            android:textColor="@color/textPrimary" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:baselineAligned="false"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <android.support.design.widget.TextInputLayout
@@ -125,12 +155,12 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/City"
                             android:inputType="textPostalAddress"
-                            android:nextFocusDown="@+id/account_edit_zip_et"
-                            android:nextFocusForward="@+id/account_edit_zip_et"
                             android:nextFocusLeft="@+id/account_edit_house_number_et"
                             android:nextFocusRight="@+id/account_edit_zip_et"
+                            android:nextFocusDown="@+id/account_edit_zip_et"
+                            android:nextFocusForward="@+id/account_edit_zip_et"
                             android:singleLine="true"
-                            android:textColor="@color/textPrimary"/>
+                            android:textColor="@color/textPrimary" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -147,12 +177,12 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/ZIP"
                             android:inputType="number"
-                            android:nextFocusDown="@+id/account_edit_phone_et"
-                            android:nextFocusForward="@+id/account_edit_phone_et"
                             android:nextFocusLeft="@+id/account_edit_city_et"
                             android:nextFocusRight="@+id/account_edit_phone_et"
+                            android:nextFocusDown="@+id/account_edit_phone_et"
+                            android:nextFocusForward="@+id/account_edit_phone_et"
                             android:singleLine="true"
-                            android:textColor="@color/textPrimary"/>
+                            android:textColor="@color/textPrimary" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -172,7 +202,7 @@
                         android:focusable="false"
                         android:hint="@string/Email"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/textSecondary"/>
+                        android:textColor="@color/textSecondary" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -189,7 +219,7 @@
                         android:hint="@string/Phone"
                         android:inputType="phone"
                         android:singleLine="true"
-                        android:textColor="@color/textPrimary"/>
+                        android:textColor="@color/textPrimary" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -207,14 +237,14 @@
                     android:paddingTop="16dp"
                     android:text="@string/Changing_the_password"
                     android:textColor="@color/textPrimary"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/account_edit_password_current_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textColorHint="@color/colorPrimaryLight">
 
                     <EditText
@@ -223,15 +253,15 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/Password"
                         android:inputType="textPassword"
-                        android:textColor="@color/textPrimary"/>
+                        android:textColor="@color/textPrimary" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/account_edit_password_new_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
                     android:textColorHint="@color/colorPrimaryLight">
 
                     <EditText
@@ -240,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/New_password"
                         android:inputType="textPassword"
-                        android:textColor="@color/textPrimary"/>
+                        android:textColor="@color/textPrimary" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -256,7 +286,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/Password_again"
                         android:inputType="textPassword"
-                        android:textColor="@color/textPrimary"/>
+                        android:textColor="@color/textPrimary" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -266,7 +296,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="@string/Change_password"/>
+                android:text="@string/Change_password" />
         </LinearLayout>
     </ScrollView>
 
@@ -275,5 +305,5 @@
         style="@style/buttonPrimaryStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Save"/>
+        android:text="@string/Save" />
 </LinearLayout>

@@ -24,6 +24,7 @@ public class EndPoints {
     public static final String USER_LOGIN_FACEBOOK      = API_URL.concat("%d/login/facebook?request=login_fb");
     public static final String USER_RESET_PASSWORD      = API_URL.concat("%d/users/reset-password?request=pass_reset");
     public static final String USER_SINGLE              = API_URL.concat("%d/users/%d?request=userInfo");
+    public static final String USER_EDIT                = API_URL.concat("%d/users/%d?request=userEdit");
     public static final String USER_CHANGE_PASSWORD     = API_URL.concat("%d/users/%d/password?request=pass_change");
     public static final String CART                     = API_URL.concat("%d/cart?request=cart");
     public static final String CART_INFO                = API_URL.concat("%d/cart/info?request=cart_info");

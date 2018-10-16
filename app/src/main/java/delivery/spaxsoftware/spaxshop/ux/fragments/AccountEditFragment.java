@@ -50,7 +50,8 @@ public class AccountEditFragment extends Fragment {
 
     // Account editing form
     private LinearLayout accountForm;
-    private TextInputLayout nameInputWrapper;
+    private TextInputLayout fnameInputWrapper;
+    private TextInputLayout lnameInputWrapper;
     private TextInputLayout streetInputWrapper;
     private TextInputLayout houseNumberInputWrapper;
     private TextInputLayout cityInputWrapper;
@@ -76,7 +77,8 @@ public class AccountEditFragment extends Fragment {
         // Account details form
         accountForm = (LinearLayout) view.findViewById(R.id.account_edit_form);
 
-        nameInputWrapper = (TextInputLayout) view.findViewById(R.id.account_edit_name_wrapper);
+        fnameInputWrapper = (TextInputLayout) view.findViewById(R.id.account_edit_fname_wrapper);
+        lnameInputWrapper = (TextInputLayout) view.findViewById(R.id.account_edit_lname_wrapper);
         streetInputWrapper = (TextInputLayout) view.findViewById(R.id.account_edit_street_wrapper);
         houseNumberInputWrapper = (TextInputLayout) view.findViewById(R.id.account_edit_house_number_wrapper);
         cityInputWrapper = (TextInputLayout) view.findViewById(R.id.account_edit_city_wrapper);
@@ -153,7 +155,10 @@ public class AccountEditFragment extends Fragment {
 
     private User getUserFromView() {
         User user = new User();
-        user.setName(Utils.getTextFromInputLayout(nameInputWrapper));
+        user.setName(Utils.getTextFromInputLayout(fnameInputWrapper) + " " + Utils.getTextFromInputLayout(lnameInputWrapper));
+        user.setFirstName(Utils.getTextFromInputLayout(fnameInputWrapper));
+        user.setLastName(Utils.getTextFromInputLayout(lnameInputWrapper));
+        user.setEmail(Utils.getTextFromInputLayout(emailInputWrapper));
         user.setStreet(Utils.getTextFromInputLayout(streetInputWrapper));
         user.setHouseNumber(Utils.getTextFromInputLayout(houseNumberInputWrapper));
         user.setCity(Utils.getTextFromInputLayout(cityInputWrapper));
@@ -163,7 +168,8 @@ public class AccountEditFragment extends Fragment {
     }
 
     private void refreshScreen(User user) {
-        Utils.setTextToInputLayout(nameInputWrapper, user.getName());
+        Utils.setTextToInputLayout(fnameInputWrapper, user.getFirstName());
+        Utils.setTextToInputLayout(lnameInputWrapper, user.getLastName());
         Utils.setTextToInputLayout(streetInputWrapper, user.getStreet());
         Utils.setTextToInputLayout(houseNumberInputWrapper, user.getHouseNumber());
         Utils.setTextToInputLayout(cityInputWrapper, user.getCity());
@@ -181,7 +187,8 @@ public class AccountEditFragment extends Fragment {
     private boolean isRequiredFields() {
         // Check and show all missing values
         String fieldRequired = getString(R.string.Required_field);
-        boolean nameCheck = Utils.checkTextInputLayoutValueRequirement(nameInputWrapper, fieldRequired);
+        boolean fnameCheck = Utils.checkTextInputLayoutValueRequirement(fnameInputWrapper, fieldRequired);
+        boolean lnameCheck = Utils.checkTextInputLayoutValueRequirement(lnameInputWrapper, fieldRequired);
         boolean streetCheck = Utils.checkTextInputLayoutValueRequirement(streetInputWrapper, fieldRequired);
         boolean houseNumberCheck = Utils.checkTextInputLayoutValueRequirement(houseNumberInputWrapper, fieldRequired);
         boolean cityCheck = Utils.checkTextInputLayoutValueRequirement(cityInputWrapper, fieldRequired);
@@ -189,7 +196,7 @@ public class AccountEditFragment extends Fragment {
         boolean phoneCheck = Utils.checkTextInputLayoutValueRequirement(phoneInputWrapper, fieldRequired);
         boolean emailCheck = Utils.checkTextInputLayoutValueRequirement(emailInputWrapper, fieldRequired);
 
-        return nameCheck && streetCheck && houseNumberCheck && cityCheck && zipCheck && phoneCheck && emailCheck;
+        return fnameCheck && lnameCheck && streetCheck && houseNumberCheck && cityCheck && zipCheck && phoneCheck && emailCheck;
     }
 
     /**
@@ -230,7 +237,10 @@ public class AccountEditFragment extends Fragment {
             if (activeUser != null) {
                 JSONObject joUser = new JSONObject();
                 try {
-                    joUser.put(JsonUtils.TAG_NAME, user.getName());
+                    //joUser.put(JsonUtils.TAG_NAME, user.getName());
+                    joUser.put(JsonUtils.TAG_FIRST_NAME, user.getFirstName());
+                    joUser.put(JsonUtils.TAG_LAST_NAME, user.getLastName());
+                    joUser.put(JsonUtils.TAG_EMAIL, user.getEmail());
                     joUser.put(JsonUtils.TAG_STREET, user.getStreet());
                     joUser.put(JsonUtils.TAG_HOUSE_NUMBER, user.getHouseNumber());
                     joUser.put(JsonUtils.TAG_CITY, user.getCity());
@@ -243,10 +253,10 @@ public class AccountEditFragment extends Fragment {
                     return;
                 }
 
-                String url = String.format(EndPoints.USER_SINGLE, SettingsMy.getActualNonNullShop(getActivity()).getId(), activeUser.getId());
+                String url = String.format(EndPoints.USER_EDIT, SettingsMy.getActualNonNullShop(getActivity()).getId(), activeUser.getId());
 
                 progressDialog.show();
-                GsonRequest<User> req = new GsonRequest<>(Request.Method.PUT, url, joUser.toString(), User.class,
+                GsonRequest<User> req = new GsonRequest<>(Request.Method.POST, url, joUser.toString(), User.class,
                         new Response.Listener<User>() {
                             @Override
                             public void onResponse(@NonNull User user) {

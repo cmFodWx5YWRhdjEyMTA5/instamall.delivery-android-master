@@ -7,6 +7,7 @@
     <string name="Loading">Načítám …</string>
     <string name="Retry">Obnovit</string>
     <string name="Ok">OK</string>
+    <string name="Success_Ok">Success</string>
     <string name="Cancel">Zrušit</string>
     <string name="Close">Zavřít</string>
     <string name="Clear">Vymazat</string>

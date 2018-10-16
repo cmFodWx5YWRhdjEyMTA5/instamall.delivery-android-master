@@ -260,11 +260,16 @@ public class AccountEditFragment extends Fragment {
                         new Response.Listener<User>() {
                             @Override
                             public void onResponse(@NonNull User user) {
-                                SettingsMy.setActiveUser(user);
-                                refreshScreen(user);
-                                progressDialog.cancel();
-                                MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, getString(R.string.Ok), MsgUtils.ToastLength.SHORT);
-                                getFragmentManager().popBackStackImmediate();
+                                if (user.getStatus().equals("00")) {
+                                    SettingsMy.setActiveUser(user);
+                                    refreshScreen(user);
+                                    progressDialog.cancel();
+                                    MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, getString(R.string.Success_Ok), MsgUtils.ToastLength.SHORT);
+                                    getFragmentManager().popBackStackImmediate();
+                                } else {
+                                    if (progressDialog != null) progressDialog.cancel();
+                                    MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, user.getMessage(), MsgUtils.ToastLength.SHORT);
+                                }
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -308,15 +313,20 @@ public class AccountEditFragment extends Fragment {
                 }
 
                 progressDialog.show();
-                JsonRequest req = new JsonRequest(Request.Method.PUT, url, jo, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Timber.d("Change password successful: %s", response.toString());
-                        MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, getString(R.string.Ok), MsgUtils.ToastLength.SHORT);
-                        if (progressDialog != null) progressDialog.cancel();
-                        getFragmentManager().popBackStackImmediate();
-                    }
-                }, new Response.ErrorListener() {
+                GsonRequest<User> req = new GsonRequest<>(Request.Method.POST, url, jo.toString(), User.class,
+                        new Response.Listener<User>() {
+                            @Override
+                            public void onResponse(@NonNull User user) {
+                                if (user.getStatus().equals("00")) {
+                                    MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, getString(R.string.Success_Ok), MsgUtils.ToastLength.SHORT);
+                                    if (progressDialog != null) progressDialog.cancel();
+                                    getFragmentManager().popBackStackImmediate();
+                                } else {
+                                    if (progressDialog != null) progressDialog.cancel();
+                                    MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, user.getMessage(), MsgUtils.ToastLength.SHORT);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (progressDialog != null) progressDialog.cancel();

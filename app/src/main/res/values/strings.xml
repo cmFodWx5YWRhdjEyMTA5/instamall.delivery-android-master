@@ -10,6 +10,7 @@
     <string name="Loading">Loading …</string>
     <string name="Retry">Retry</string>
     <string name="Ok">OK</string>
+    <string name="Success_Ok">Success</string>
     <string name="Cancel">Cancel</string>
     <string name="Close">Close</string>
     <string name="Clear">Clear</string>

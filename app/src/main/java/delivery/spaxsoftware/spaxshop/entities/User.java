@@ -20,6 +20,9 @@ public class User {
     private String street;
     private String city;
     private String image;
+    //User API callback responses
+    private String Status;
+    private String Message;
 
     @SerializedName("house_number")
     private String houseNumber;
@@ -31,6 +34,22 @@ public class User {
 
 
     public User() {
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public void setMessage(String Message) {
+        this.Message = Message;
     }
 
     public long getId() {

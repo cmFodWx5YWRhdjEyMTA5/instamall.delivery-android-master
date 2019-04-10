@@ -119,10 +119,10 @@ public class MyRegistrationIntentService extends IntentService {
                 User activeUser = SettingsMy.getActiveUser();
                 if (activeUser != null) {
                     Timber.d("GCM registration send: authorized");
-                    req = new JsonRequest(Request.Method.POST, url, requestPost, future, errorListener, null, activeUser.getAccessToken());
+                    req = new JsonRequest(Request.Method.GET, url, requestPost, future, errorListener, null, activeUser.getAccessToken());
                 } else {
                     Timber.d("GCM registration send: non-authorized");
-                    req = new JsonRequest(Request.Method.POST, url, requestPost, future, errorListener);
+                    req = new JsonRequest(Request.Method.GET, url, requestPost, future, errorListener);
                 }
                 req.setRetryPolicy(MyApplication.getDefaultRetryPolice());
                 req.setShouldCache(false);

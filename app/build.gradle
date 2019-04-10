@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     // needed for okHttp from 23sdk. https://medium.com/android-news/android-networking-i-okhttp-volley-and-gson-72004efff196#.gsfpn3ez8
     useLibrary 'org.apache.http.legacy'
     flavorDimensions "default"
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "delivery.spaxsoftware.spaxshop"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 3
         versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -59,9 +59,9 @@ dependencies {
     api 'com.android.support:design:27.1.1'
     api 'com.android.support:recyclerview-v7:27.1.1'
     api 'com.jakewharton.timber:timber:4.1.2'
-    api 'com.google.android.gms:play-services-analytics:16.0.3'
-    api 'com.google.android.gms:play-services-gcm:15.0.1'
-    api 'com.google.android.gms:play-services-maps:15.0.1'
+    api 'com.google.android.gms:play-services-analytics:16.0.5'
+    api 'com.google.android.gms:play-services-gcm:16.0.0'
+    api 'com.google.android.gms:play-services-maps:16.0.0'
     api 'com.google.code.gson:gson:2.8.0'
     api 'mbanje.kurt:fabbutton:1.2.1'
     api 'com.facebook.android:facebook-android-sdk:4.9.0'

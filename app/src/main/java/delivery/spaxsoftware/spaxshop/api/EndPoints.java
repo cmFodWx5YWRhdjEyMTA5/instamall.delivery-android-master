@@ -17,7 +17,7 @@ public class EndPoints {
     public static final String PAGES_SINGLE             = API_URL.concat("%d/pages/%d?request=pages");
     public static final String PAGES_TERMS_AND_COND     = API_URL.concat("%d/pages/terms?request=pages");
     public static final String PRODUCTS                 = API_URL.concat("%d/products");
-    public static final String PRODUCTS_SINGLE          = API_URL.concat("%d/products/%d");
+    public static final String PRODUCTS_SINGLE          = API_URL.concat("%d/products/%d?include=notrelated&request=products");
     public static final String PRODUCTS_SINGLE_RELATED  = API_URL.concat("%d/products/%d?include=related&request=products");
     public static final String USER_REGISTER            = API_URL.concat("%d/users/register?request=register");
     public static final String USER_LOGIN_EMAIL         = API_URL.concat("%d/login/email?request=login_mail");

@@ -1,17 +1,17 @@
 {
   "project_info": {
-    "project_id": "spaxshop-bf-1216",
+    "project_id": "instamall-bf-1216",
     "project_number": "325761325996",
-    "name": "SpaxShop"
+    "name": "instamall"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:325761325996:android:88c2d391918f6b36",
-        "client_id": "android:delivery.spaxsoftware.spaxshop",
+        "client_id": "android:delivery.spaxsoftware.instamall",
         "client_type": 1,
         "android_client_info": {
-          "package_name": "delivery.spaxsoftware.spaxshop"
+          "package_name": "delivery.spaxsoftware.instamall"
         }
       },
       "oauth_client": [],

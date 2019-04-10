@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="delivery.spaxsoftware.spaxshop"
+    package="delivery.spaxsoftware.instamall"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- General permissions -->
@@ -14,13 +14,13 @@
 
     <!-- GCM permission to prevent other Android applications from registering and receiving the Android application's messages.-->
     <permission
-        android:name="delivery.spaxsoftware.spaxshop.permission.C2D_MESSAGE"
+        android:name="delivery.spaxsoftware.instamall.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
     <uses-permission android:name="bf.io.openshop.permission.C2D_MESSAGE"/>
 
 
     <application
-        android:name="delivery.spaxsoftware.spaxshop.MyApplication"
+        android:name="delivery.spaxsoftware.instamall.MyApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -33,7 +33,7 @@
             android:value="@string/facebook_app_id"/>
 
         <activity
-            android:name="delivery.spaxsoftware.spaxshop.ux.SplashActivity"
+            android:name="delivery.spaxsoftware.instamall.ux.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -47,7 +47,7 @@
         </activity>
 
         <activity
-            android:name="delivery.spaxsoftware.spaxshop.ux.MainActivity"
+            android:name="delivery.spaxsoftware.instamall.ux.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -60,7 +60,7 @@
         </activity>
 
         <activity
-            android:name="delivery.spaxsoftware.spaxshop.ux.RestartAppActivity"
+            android:name="delivery.spaxsoftware.instamall.ux.RestartAppActivity"
             android:screenOrientation="portrait"/>
 
         <!-- Facebook activity used for FB login-->
@@ -84,21 +84,21 @@
         </receiver>
 
         <service
-            android:name="delivery.spaxsoftware.spaxshop.utils.MyGcmListenerService"
+            android:name="delivery.spaxsoftware.instamall.utils.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
             </intent-filter>
         </service>
         <service
-            android:name="delivery.spaxsoftware.spaxshop.utils.MyInstanceIDListenerService"
+            android:name="delivery.spaxsoftware.instamall.utils.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID"/>
             </intent-filter>
         </service>
         <service
-            android:name="delivery.spaxsoftware.spaxshop.utils.MyRegistrationIntentService"
+            android:name="delivery.spaxsoftware.instamall.utils.MyRegistrationIntentService"
             android:exported="false"/>
         <!-- end of GCM part-->
 

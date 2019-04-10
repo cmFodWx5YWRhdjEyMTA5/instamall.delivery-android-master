@@ -10,7 +10,7 @@ android {
         javaMaxHeapSize "3g"
     }
     defaultConfig {
-        applicationId "delivery.spaxsoftware.spaxshop"
+        applicationId "delivery.spaxsoftware.instamall"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 3
@@ -46,7 +46,7 @@ android {
 }
 
 task clearData(type: Exec) {
-    def clearDataCommand = ['adb', 'shell', 'pm', 'clear', 'delivery.spaxsoftware.spaxshop']
+    def clearDataCommand = ['adb', 'shell', 'pm', 'clear', 'delivery.spaxsoftware.instamall']
     commandLine clearDataCommand
 }
 

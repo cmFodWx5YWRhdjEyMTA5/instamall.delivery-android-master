@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <delivery.spaxsoftware.spaxshop.views.ResizableImageView
+    <delivery.spaxsoftware.instamall.views.ResizableImageView
         android:id="@+id/list_item_wishlist_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

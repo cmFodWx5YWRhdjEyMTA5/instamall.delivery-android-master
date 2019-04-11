@@ -28,7 +28,8 @@ public class EndPoints {
     public static final String USER_CHANGE_PASSWORD     = API_URL.concat("%d/users/%d?request=pass_change");
     public static final String CART                     = API_URL.concat("%d/cart?request=cart");
     public static final String CART_INFO                = API_URL.concat("%d/cart/info?request=cart_info");
-    public static final String CART_ITEM                = API_URL.concat("%d/cart/%d?request=cart_item");
+    public static final String CART_ITEM_DELETE         = API_URL.concat("%d/cart/%d?request=cart_item_delete");
+    public static final String CART_ITEM_UPDATE         = API_URL.concat("%d/cart/%d?request=cart_item_update");
     public static final String CART_DELIVERY_INFO       = API_URL.concat("%d/cart/delivery-info?request=cart_info");
     public static final String CART_DISCOUNTS           = API_URL.concat("%d/cart/discounts?request=cart_discount");
     public static final String CART_DISCOUNTS_SINGLE    = API_URL.concat("%d/cart/discounts/%d?request=cart_discount");

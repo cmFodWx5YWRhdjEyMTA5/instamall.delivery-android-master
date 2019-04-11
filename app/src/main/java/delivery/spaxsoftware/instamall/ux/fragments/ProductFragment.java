@@ -682,7 +682,7 @@ public class ProductFragment extends Fragment {
                 return;
             }
 
-            String url = String.format(EndPoints.CART, SettingsMy.getActualNonNullShop(getActivity()).getId());
+            String url = String.format(EndPoints.CART, SettingsMy.getActualNonNullShop(getActivity()).getId()) + "&id=" + user.getId();
             JsonRequest addToCart = new JsonRequest(Request.Method.POST, url, jo, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {

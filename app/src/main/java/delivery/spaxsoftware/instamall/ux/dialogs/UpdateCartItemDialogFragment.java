@@ -29,6 +29,7 @@ import delivery.spaxsoftware.instamall.SettingsMy;
 import delivery.spaxsoftware.instamall.api.EndPoints;
 import delivery.spaxsoftware.instamall.api.GsonRequest;
 import delivery.spaxsoftware.instamall.api.JsonRequest;
+import delivery.spaxsoftware.instamall.entities.SimpleAPIResponse;
 import delivery.spaxsoftware.instamall.entities.User;
 import delivery.spaxsoftware.instamall.entities.cart.CartProductItem;
 import delivery.spaxsoftware.instamall.entities.product.Product;
@@ -293,18 +294,24 @@ public class UpdateCartItemDialogFragment extends DialogFragment {
             }
             Timber.d("update product: %s", jo.toString());
 
-            String url = String.format(EndPoints.CART_ITEM, SettingsMy.getActualNonNullShop(getActivity()).getId(), productCartId);
+            String url = String.format(EndPoints.CART_ITEM_UPDATE, SettingsMy.getActualNonNullShop(getActivity()).getId(), productCartId);
 
             setProgressActive(true);
-            JsonRequest req = new JsonRequest(Request.Method.PUT, url, jo, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Timber.d("Update item in cart: %s", response.toString());
-                    if (requestListener != null) requestListener.requestSuccess(0);
-                    setProgressActive(false);
-                    dismiss();
-                }
-            }, new Response.ErrorListener() {
+            GsonRequest<SimpleAPIResponse> req = new GsonRequest<>(Request.Method.POST, url, jo.toString(), SimpleAPIResponse.class,
+                    new Response.Listener<SimpleAPIResponse>() {
+                        @Override
+                        public void onResponse(@NonNull SimpleAPIResponse sar) {
+                            if (sar.getStatus().equals("00")) {
+                                if (requestListener != null) requestListener.requestSuccess(0);
+                                setProgressActive(false);
+                                dismiss();
+                            }else {
+                                if (requestListener != null) requestListener.requestFailed(new VolleyError("Failed to update cart item!"));
+                                setProgressActive(false);
+                                MsgUtils.showToast(getActivity(), MsgUtils.TOAST_TYPE_MESSAGE, sar.getMessage(), MsgUtils.ToastLength.SHORT);
+                            }
+                        }
+                    }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     setProgressActive(false);
